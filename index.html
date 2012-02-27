@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="https://wsman.heroku.com/stylesheets/validationEngine.jquery.css?1330283729" media="screen" rel="stylesheet" type="text/css">
+<link href="https://wsman.heroku.com/stylesheets/mobile.css?1330283729" media="screen" rel="stylesheet" type="text/css">
+<script src="jquery.js"></script><script src="https://wsman.heroku.com/javascripts/languages/jquery.validationEngine-en.js?1330283729" type="text/javascript"></script><script src="https://wsman.heroku.com/javascripts/jquery.validationEngine.js?1330283729" type="text/javascript"></script><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="y+xYVSlEdUU+F/8ZBe9OzFuqPiVg2B7y4uJSnnN7Pvk=">
+</head>
+<body>
+	<div class="main_container clearfix">
+		<script type="text/javascript">
+
+</script><div data-role="content" data-inset="false" style="margin: 0; padding: 0; padding-top: 10px;">
+
+
+  <div class="left_column">
+  </div>
+  <div class="right_column">
+  </div>
+  
+  
+  <div class="send_content_form_wrapper">
+		<div class="anuncio_form_container">
+			<div class="anuncio_form">
+				<div class="anuncio_cta">Me gusta! Enviame un enlace a Nantes daily photo a mi correo!</div>
+				<form accept-charset="UTF-8" action="https://wsman.heroku.com/messages" class="new_message" id="new_message" method="post">
+<div style="margin:0;padding:0;display:inline">
+<input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="y+xYVSlEdUU+F/8ZBe9OzFuqPiVg2B7y4uJSnnN7Pvk=">
+</div>
+					<input id="message_content_id" name="message[content_id]" type="hidden" value="195"><input id="message_message_type" name="message[message_type]" type="hidden" value="send_feed_link"><br>
+					
+						Tu nombre: <div class="anuncio_form_field"><input class="validate[required]" id="message_message_name" name="message[message][name]" size="30" type="text"></div>
+<br>
+						Email: <div class="anuncio_form_field"><input class="validate[required,custom[email]]" id="message_message_email" name="message[message][email]" size="30" type="text"></div>
+<br><div>
+					<br><div class="send_message_button" style="position: relative; display: block;">
+						<a href="https://wsman.heroku.com/feeds/index.html" id="send_message" data-role="none">Enviar mensaje</a> 
+					</div>
+			</div>
+		</form>
+</div>
+	</div>
+  
+  	
+	
+<script>
+
+
+/*addLoadEvent(function() {
+*/
+
+
+//function calculateHeights() {
+//console.log("Calculating");
+//alert("loaded");
+$(document).ready(function(){
+
+	$('body').bind('orientationchange',function(event){
+     window.location.reload(true);
+  })
+
+  $('article').each(function () {
+    var current = $(this);
+      current.attr("data-height", current.height());
+  });
+
+  $('article').css("height", "105px");
+    
+  //OPEN BUTTON DOWN
+  $('.show_button_link').mousedown(function(e) {
+   	article_id = (this.id).replace('show_id_link_','');
+		$("#triangle_"+article_id).css({background:"url('/images/green_triangle.png')"} );
+  }) 
+    
+  //CLOSE BUTTON DOWN
+  $('.close_button_link').mousedown(function(e) {
+   	article_id = (this.id).replace('close_id_link_','');
+		$("#x_"+article_id).css({background:"url('/images/xdown.png')"} );
+  })    
+    
+  //OPEN ARTICLE
+  $('.show_button_link').click(function(e) {
+  	article_id = (this.id).replace('show_id_link_','');
+    var open_height = $("#"+article_id).attr("data-height") + "px";
+    $("#"+article_id).animate({"height": open_height}, "slow" );
+    $(this).hide();
+    $("#close_id_link_"+article_id).show();
+  })
+    
+  //CLOSE ARTICLE
+  $('.close_button_link').click(function(e) {
+   	article_id = (this.id).replace('close_id_link_','');
+    $("#"+article_id).animate({"height": "105"}, "slow" );
+    $(this).hide();
+  	$("#show_id_link_"+article_id).show();
+ 		$("#triangle_"+article_id).css({background:"url('/images/gray_triangle.png')"} );
+		$("#x_"+article_id).css({background:"url('/images/xup.png')"} );
+  })
+  
+//};  
+});
+
+
+</script><script>
+	$(document).ready(function(){
+  	$("#new_message").validationEngine('attach', {promptPosition : "topRight", scroll: false});
+  });
+        
+  function onFollowSuccess(data, status) {
+  	$.mobile.hidePageLoadingMsg();
+    $('#new_message')[0].reset();
+    alert("Mensaje enviado, en cuanto se posible nos pondremos en contacto contigo")
+  }
+
+  function onFollowError(data, status) {
+  	$.mobile.hidePageLoadingMsg();
+		alert("Ha ocurrido un problema por favor inténtalo de nuevo más tarde")
+  }
+
+  $(document).ready(function() {
+  	$("#send_message").click(function(){
+    	var em = $("#new_message").validationEngine('validate')
+      var emcontent = jQuery.trim($('#message_message_email').val())
+      if (em == false || emcontent == "") { return false; }
+      var formData = $("#new_message").serialize();
+      $.mobile.showPageLoadingMsg();
+      $.ajax({
+      	type: "POST",
+        url: "/messages",
+        cache: false,
+        data: formData,
+        success: onFollowSuccess,
+        error: onFollowError
+      });
+      return false;
+    });
+  });
+</script>
+</div>
+</div>
+
+	</div>
+</body>
+</html>
